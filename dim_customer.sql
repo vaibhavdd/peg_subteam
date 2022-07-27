@@ -163,7 +163,7 @@ customers as (
     left join dim_customer_mindbody_map
         on account.salesforce_account_id = dim_customer_mindbody_map.salesforce_account_id
     left join dim_mindbody_legacy
-        on dim_customer_mindbody_map.legacy_mindbody_sfdc_account_id = dim_mindbody_legacy.legacy_mindbody_sfdc_account_id
+        using dim_customer_mindbody_map.legacy_mindbody_sfdc_account_id = dim_mindbody_legacy.legacy_mindbody_sfdc_account_id
             and core_software_subscription.platform = 'Mindbody'
     left join dim_booker_legacy
         on account.legacy_booker_sfdc_account_id = dim_booker_legacy.legacy_booker_sfdc_account_id
