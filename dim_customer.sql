@@ -52,7 +52,7 @@ core_software_subscription as (
         legacy_mindbody_sfdc_account_id                           as legacy_mindbody_sfdc_account_id,
         legacy_booker_sfdc_account_id                             as legacy_booker_sfdc_account_id,
         product_instance_id                                       as product_instance_id,
-        initcap(split_part(product_name, ' ', 1))                 as platform,
+        initcap(split_part(product_name, ' ', 1)),
         product_name                                              as product_name,
         starlink                                                  as starlink,
         opportunity_close_date                                    as opportunity_close_date,
