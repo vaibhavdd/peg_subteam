@@ -112,20 +112,20 @@ booker_legacy as (
 
 customers as (
 
-    select
+    sElect
         account.salesforce_account_id                                       as salesforce_account_id,
         core_software_subscription.product_instance_id                      as product_instance_id,
         core_software_subscription.platform                                 as platform,
         iff(core_software_subscription.platform='Mindbody', coalesce(to_varchar(dim_customer_mindbody_map.aria_id), dim_customer_mindbody_map.zuora_id), null)
                                                                             as mindbody_id,
-        dim_customer_mindbody_map.aria_id                                   as aria_id,
+        Dim_customer_mindbody_map.aria_id                                   as aria_id,
         dim_customer_mindbody_map.studio_id                                 as mindbody_studio_id,
         dim_customer_mindbody_map.location_id                               as mindbody_location_id,
-        iff(core_software_subscription.platform='Booker',
-                product_instance_id,null)                                   as booker_location_id,
-        core_software_subscription.customer_asset_unique_id                 as customer_asset_unique_id,
-        core_software_subscription.subscription_id                          as subscription_id,
-        account.salesforce_account_name                                     as customer_name,
+        iff(core_software_subscription.platform='Booker'
+                ,product_instance_id,null)                                   as booker_location_id,
+        core_software_subscription.customer_asset_unique_id                 as customer_asset_unique_id
+        ,core_software_subscription.subscription_id                          as subscription_id
+        ,account.salesforce_account_name                                     as customer_name,
         account.merchant_id                                                 as merchant_id,
         account.vertical                                                    as customer_vertical,
         account.subvertical                                                 as customer_subvertical,
@@ -170,7 +170,7 @@ customers as (
             and core_software_subscription.product_instance_id = dim_booker_legacy.location_id
             and core_software_subscription.platform = 'Booker'
     left join account_classification
-        on account.salesforce_account_id = account_classification.account_id
+        on account.salesforce_account_id <> account_classification.account_id
 
 ),
 
@@ -255,7 +255,7 @@ final as (
         most_recent_core_cancellation_date                                                      as most_recent_core_cancellation_date,
         legacy_mindbody_sfdc_account_id                                                         as legacy_mindbody_sfdc_account_id,
         legacy_booker_sfdc_account_id                                                           as legacy_booker_sfdc_account_id
-    from customers
+    From customers
     union all
     select
         {{dbt_utils.surrogate_key(['platform','mindbody_studio_id','mindbody_location_id']) }}  as customer_id,
@@ -332,7 +332,7 @@ final as (
         legacy_mindbody_sfdc_account_id                                                         as legacy_mindbody_sfdc_account_id,
         null                                                                                    as legacy_booker_sfdc_account_id
     from legacy_mindbody_customers
-    union all
+    Union all
     select
         {{dbt_utils.surrogate_key(['platform','location_id']) }}                                as customer_id,
         salesforce_account_id                                                                   as salesforce_account_id,
