@@ -14,7 +14,7 @@ account as (
 
 ),
 
-subscription as (
+ subscription as (
 
     select * from {{ ref('dim_customer_subscription') }}
 
@@ -32,13 +32,13 @@ dim_booker_legacy as (
 
 ),
 
-dim_customer_mindbody_map as (
+ dim_customer_mindbody_map as (
 
     select * from {{ ref('dim_customer_mindbody_map') }}
 
-),
+ ),
 
-account_classification as (
+ account_classification as (
 
     select * from {{ ref('sfdc_account_classification_xf') }}
     qualify row_number() over (partition by account_id order by dbt_valid_to_month desc)=1
@@ -70,7 +70,7 @@ core_software_subscription as (
     qualify dense_rank() over ( partition by coalesce(salesforce_account_id, legacy_mindbody_sfdc_account_id, legacy_booker_sfdc_account_id)
                                 order by effective_end_date desc,effective_start_date desc) = 1
 
-),
+   ),
 
 mindbody_legacy as (
 
