@@ -10,7 +10,7 @@ with
 
 account as (
 
-    select * from {{ ref('dim_sfdc_account') }}
+     select * from {{ ref('dim_sfdc_account') }}
 
 ),
 
@@ -47,7 +47,7 @@ dim_booker_legacy as (
 
 core_software_subscription as (
 
-    select
+        select
         salesforce_account_id                                     as salesforce_account_id,
         legacy_mindbody_sfdc_account_id                           as legacy_mindbody_sfdc_account_id,
         legacy_booker_sfdc_account_id                             as legacy_booker_sfdc_account_id,
@@ -93,7 +93,7 @@ mindbody_legacy as (
 
 booker_legacy as (
 
-    select
+   select
         dim_booker_legacy.*,
         account.salesforce_account_id,
         account.data_owner_id                                               as data_owner_id,
@@ -332,7 +332,7 @@ final as (
         legacy_mindbody_sfdc_account_id                                                         as legacy_mindbody_sfdc_account_id,
         null                                                                                    as legacy_booker_sfdc_account_id
     from legacy_mindbody_customers
-    Union all
+    union all
     select
         {{dbt_utils.surrogate_key(['platform','location_id']) }}                                as customer_id,
         salesforce_account_id                                                                   as salesforce_account_id,
