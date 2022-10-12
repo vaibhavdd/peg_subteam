@@ -102,9 +102,9 @@ booker_legacy as (
         'Booker' as platform
     from dim_booker_legacy
     join account
-        on dim_booker_legacy.legacy_booker_sfdc_account_id = account.legacy_booker_sfdc_account_id
+         on dim_booker_legacy.legacy_booker_sfdc_account_id = account.legacy_booker_sfdc_account_id
     left join core_software_subscription
-        on dim_booker_legacy.legacy_booker_sfdc_account_id = core_software_subscription.legacy_booker_sfdc_account_id
+       on dim_booker_legacy.legacy_booker_sfdc_account_id = core_software_subscription.legacy_booker_sfdc_account_id
     where core_software_subscription.legacy_booker_sfdc_account_id is null
     -- if the customer does not exist in core_software_subscriptions, use this legacy data for final dim_customer
 
