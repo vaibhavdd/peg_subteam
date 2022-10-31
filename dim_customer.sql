@@ -101,7 +101,7 @@ booker_legacy as (
         account.data_owner_email                                            as data_owner_email,
         'Booker' as platform
     from dim_booker_legacy
-    join account
+      join account
          on dim_booker_legacy.legacy_booker_sfdc_account_id = account.legacy_booker_sfdc_account_id
     left join core_software_subscription
        on dim_booker_legacy.legacy_booker_sfdc_account_id = core_software_subscription.legacy_booker_sfdc_account_id
@@ -116,7 +116,8 @@ customers as (
         account.salesforce_account_id                                       as salesforce_account_id,
         core_software_subscription.product_instance_id                      as product_instance_id,
         core_software_subscription.platform                                 as platform,
-        iff(core_software_subscription.platform='Mindbody', coalesce(to_varchar(dim_customer_mindbody_map.aria_id), dim_customer_mindbody_map.zuora_id), null)
+        iff(core_software_subscription.platform='Mindbody', 
+            coalesce(to_varchar(dim_customer_mindbody_map.aria_id), dim_customer_mindbody_map.zuora_id), null)
                                                                             as mindbody_id,
         Dim_customer_mindbody_map.aria_id                                   as aria_id,
         dim_customer_mindbody_map.studio_id                                 as mindbody_studio_id,
