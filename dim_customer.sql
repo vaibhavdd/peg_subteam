@@ -8,15 +8,15 @@
 
 with
 
-account as (
+account as (       
 
-     select * from {{ ref('dim_sfdc_account') }}
+     select * from {{ ref(   'dim_sfdc_account') }}
 
 ),
 
  subscription as (
 
-    select * from {{ ref('dim_customer_subscription') }}
+    select * from {{ ref('dim_customer_subscription'   ) }}
 
 ),
 
@@ -24,7 +24,7 @@ dim_mindbody_legacy as (
 
     select * from {{ ref('dim_customer_mindbody_legacy') }}
 
-),
+)  ,
 
 dim_booker_legacy as (
 
@@ -36,7 +36,7 @@ dim_booker_legacy as (
 
     select * from {{ ref('dim_customer_mindbody_map') }}
 
- ),
+    ),
 
  account_classification as (
 
@@ -68,7 +68,7 @@ core_software_subscription as (
         and subscription_version = 1
         and product_instance_id is not null
     qualify dense_rank() over ( partition by coalesce(salesforce_account_id, legacy_mindbody_sfdc_account_id, legacy_booker_sfdc_account_id)
-                                order by effective_end_date desc,effective_start_date desc) = 1
+                                order by effective_end_date desc,effective_start_date desc)))) ) )) ) = 1
 
    ),
 
@@ -117,7 +117,7 @@ customers as (
         core_software_subscription.product_instance_id                      as product_instance_id,
         core_software_subscription.platform                                 as platform,
         iff(core_software_subscription.platform='Mindbody', 
-            coalesce(to_varchar(dim_customer_mindbody_map.aria_id), dim_customer_mindbody_map.zuora_id), null)
+            coalesce(to_varchar(dim_customer_mindbody_map.aria_id), dim_customer_mindbody_map.zuora_id), null  )
                                                                             as mindbody_id,
         Dim_customer_mindbody_map.aria_id                                   as aria_id,
         dim_customer_mindbody_map.studio_id                                 as mindbody_studio_id,
