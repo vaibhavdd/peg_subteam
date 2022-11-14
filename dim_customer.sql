@@ -208,7 +208,10 @@ final as (
         customer_name                                                                           as customer_name,
         case
             when customer_vertical = 'Wellness Center'
-                then 'Integrative Health'
+                case
+                    when customer_location = 'Pune'
+                        then 'Integrative Health'
+                    else 'Bareilly'
             when customer_vertical is null
                 then 'Other'
             else customer_vertical
