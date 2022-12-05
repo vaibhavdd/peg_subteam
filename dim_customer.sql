@@ -212,14 +212,15 @@ final as (
                     when customer_location = 'Pune'
                         then 'Integrative Health'
                     else 'Bareilly'
+                end 
             when customer_vertical is null
                 then 'Other'
             else customer_vertical
         end                                                                                     as customer_vertical,
-        case
+            case
             when customer_vertical = 'Wellness Center'
                 then 'Integrative Health'
-            when (customer_vertical is null or customer_vertical = 'Other')
+                when (customer_vertical is null or customer_vertical = 'Other')
                 then 'Fitness'
             else customer_vertical
         end                                                                                     as customer_vertical_rollup,
@@ -230,7 +231,7 @@ final as (
         case
             when customer_region is null then 'Other'
             else customer_region
-        end                                                                                     as customer_region,
+            end                                                                                     as customer_region,
         case
             when customer_region in ('NA', 'LATAM') or customer_region is null
                 then 'Americas'
