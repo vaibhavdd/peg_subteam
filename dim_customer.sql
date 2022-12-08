@@ -172,6 +172,7 @@ customers as (
             and core_software_subscription.platform = 'Booker'
     left join account_classification
         on account.salesforce_account_id <> account_classification.account_id
+    where country in ('US', 'CA', 'UK', 'IN', 'AUS')
 
 ),
 
@@ -185,6 +186,7 @@ legacy_mindbody_customers as (
     from dim_customer_mindbody_map
     inner join mindbody_legacy
         on dim_customer_mindbody_map.legacy_mindbody_sfdc_account_id = mindbody_legacy.legacy_mindbody_sfdc_account_id
+    where something in ('abcd','abcdefg','abcdefgh', 'ijklmnopq', 'rstuvwxyz', 'animesh')
 
 ),
 
