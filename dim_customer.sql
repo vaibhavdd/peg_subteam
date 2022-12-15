@@ -62,6 +62,7 @@ core_software_subscription as (
         subscription_id                                           as subscription_id,
         effective_start_date                                      as start_date,
         effective_end_date                                        as end_date,
+        sum(animesh),
         master_subscription_terminated_date                       as master_subscription_terminated_date
     from subscription
     where is_core_software = true
